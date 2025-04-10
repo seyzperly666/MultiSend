@@ -4,7 +4,6 @@ local c = Instance.new("ScreenGui")
 c.Parent = b.PlayerGui
 c.Name = "MultiSend by LK-GONNA11"
 
--- Interface principale (boîte de spam)
 local d = Instance.new("Frame")
 d.Size = UDim2.new(0, 400, 0, 300)
 d.Position = UDim2.new(0.5, -200, 0.5, -150)
@@ -67,21 +66,18 @@ i.TextColor3 = Color3.fromRGB(255, 255, 255)
 i.Font = Enum.Font.SourceSansBold
 i.Parent = d
 
--- Logo en haut à gauche (initialement caché)
 local j = Instance.new("ImageButton")
 j.Size = UDim2.new(0, 40, 0, 40)
 j.Position = UDim2.new(0, 10, 0, 10)
-j.Image = "rbxassetid://123456789"  -- Remplacez par votre propre ID d'image
-j.Visible = false  -- C'est caché au début
+j.Image = "rbxassetid://94030720100977"
+j.Visible = false
 j.Parent = c
 
--- Function to send messages
 local function sendMessage(msg)
     local messageRequest = a:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
     messageRequest:FireServer(msg, "All")
 end
 
--- Function to bypass moderation with similar characters
 local function obfuscate(text)
     local letter_map = {
         ["a"]="а", ["e"]="е", ["o"]="о", ["c"]="с", ["y"]="у", ["l"]="Ⅼ", 
@@ -93,14 +89,12 @@ local function obfuscate(text)
         return letter_map[c:lower()] or c
     end)
 
-    text = text:gsub("([aeiou])", "%1")  -- Adds invisible space after each vowel to avoid moderation
+    text = text:gsub("([aeiou])", "%1")
     return text
 end
 
--- List of potentially moderated words
 local k = {"badword1", "badword2", "badword3", "shit"}
 
--- Function to check if a message is moderated
 local function isModerated(text)
     for _, v in ipairs(k) do
         if text:lower():find(v) then
@@ -110,14 +104,13 @@ local function isModerated(text)
     return false
 end
 
--- When the "Send" button is clicked
 h.MouseButton1Click:Connect(function()
     local msg = f.Text
-    local numMessages = tonumber(g.Text) or 1  -- Default to 1 if input is invalid
+    local numMessages = tonumber(g.Text) or 1  
 
     if msg and msg ~= "" then
         if isModerated(msg) then
-            msg = obfuscate(msg)  -- Apply obfuscation if it's a moderated word
+            msg = obfuscate(msg)  
         end
         
         for i = 1, numMessages do
@@ -126,14 +119,15 @@ h.MouseButton1Click:Connect(function()
     end
 end)
 
--- When the "X" button is clicked (close the frame and show the logo)
 i.MouseButton1Click:Connect(function()
     d.Visible = false
     j.Visible = true
 end)
 
--- When the logo is clicked (reopen the frame)
 j.MouseButton1Click:Connect(function()
     d.Visible = true
     j.Visible = false
+end)  d.Visible = true
+    j.Visible = false
 end)
+ 
